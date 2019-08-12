@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+<link rel="stylesheet" href="/css/font-awesome.min.css" >
+<script src="/js/jquery-1.12.4.min.js"></script>
+<script src="/js/d3.v4.min.js"></script>
+<script src="/js/okyChart.js"></script>
+<link rel="stylesheet" href="/css/init.css">
+<link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+<section class="container">
+    <div class="left-area">
+        <div class="chart-area">
+            <a id="download" class="btn-big" href="#" download="chart.png">이미지 저장</a>
+            <div id="okyChart"></div>
+        </div>
+        <div class="left-bottom-area">
+            <div class="data-area">
+                <div class="table-top">
+                    <h2>데이터 입력</h2>
+                    <button type="button" id="addRow">행추가 <i class="fas fa-plus-circle"></i></button>
+                    <button type="button" id="addCol">열추가 <i class="fas fa-plus-circle"></i></button>
+                    <button type="button" id="applyData" class="btn-solid">적용</button>
+                </div>
+                <div class="cont-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="code-area">
+                <div class="table-top">
+                    <h2>소스 보기</h2>
+                    <button type="button" id="guide">사용 방법</button>
+                </div>
+                <div class="cont-wrap">
+                    <pre class="code-view"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="adjust-area">
+        <div class="table-top">
+            <h2>설정값 입력</h2>
+            <button type="button" id="applyChart">적용</button>
+        </div>
+        <h3>기본 사항</h3>
+        <table>
+            <tr>
+                <th scope="row" tilte="데이터에서 X축이 될 속성값">X축 필드값</th>
+                <td><input type="text" name="xField" value="date"></td>
+            </tr>
+            <tr>
+                <th scope="row">차트 넓이</th>
+                <td><input type="text" value="800" name="chartWidth"></td>
+            </tr>
+            <tr>
+                <th scope="row">차트 높이</th>
+                <td><input type="text" value="500" name="chartHeight"></td>
+            </tr>
+            <tr>
+                <th scope="row">바탕색</th>
+                <td>
+                    <input type="text" name="backgroundColor" class="color-input" value="#ffffff">
+                    <div class="selected-color" style="background-color:#fff;"></div>
+                </td> 
+            </tr>
+        </table>
+        <h3>차트 옵션 <i class="fas fa-plus-circle" id="addColumn" title="차트 옵션 추가"></i></h3>
+        <table class="graph-property">
+            <tr class="all">
+                <th scope="row">제목</th>
+                <td><input type="text" value="title1" name="chartTitle1"></td>
+            </tr>
+            <tr class="all">
+                <th scope="row">유형</th>
+                <td>
+                    <ul class="type-list">
+                        <li class="selected" data-chart-type="bar">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>막대</span>
+                        </li>
+                        <li data-chart-type="line">
+                            <i class="fas fa-chart-line"></i>
+                            <span>꺾은선</span>
+                        </li>
+                        <li data-chart-type="pie">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>파이</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="all">
+                <th scope="row">y축 필드값</th>
+                <td><input type="text" value="value" name="yFeild1"></td>
+            </tr>
+            <tr class="bar">
+                <th scope="row"  tilte="바 차트의 색">채우기 색</th>
+                <td>
+                    <input type="text" name="fillColor1" class="color-input" value="#228be6">
+                    <div class="selected-color" style="background-color:#228be6;"></div>
+                </td> 
+            </tr>
+            <tr class="bar">
+                <th scope="row" title="비율로 결정 0~1 사이의 수 입력">바 넓이</th>
+                <td><input type="text" value="0.5" name="barWidth1"></td> 
+            </tr>
+            <tr class="line hidden">
+                <th scope="row">선 색</th>
+                <td>
+                    <input type="text" name="lineColor1" class="color-input" value="#228be6">
+                    <div class="selected-color" style="background-color:#228be6;"></div>
+                </td> 
+            </tr>
+            <tr class="line hidden">
+                <th scope="row">선 두께</th>
+                <td><input type="text" value="2" name="lineWidth1"></td> 
+            </tr>
+            <tr class="line hidden">
+                <th scope="row"  tilte="값 표시 모양 선택하지 않으면 미표시">블릿</th>
+                <td>
+                    <ul class="shape-list">
+                        <li data-shape="circle"><span></span></li>
+                        <li data-shape="square"><span></span></li>
+                        <li data-shape="triangle"><span></span></li>
+                        <li data-shape="diamond"><span></span></li>
+                    </ul>
+                </td> 
+            </tr>
+            <tr class="line hidden">
+                <th scope="row">블릿 사이즈</th>
+                <td><input type="text" value="8" name="bulletSize1"></td> 
+            </tr>
+            <tr class="pie hidden">
+                <th scope="row" title="도넛 차트를 원할 시 0~1 사이 숫자를 입력">내부 반지름</th>
+                <td><input type="text" value="0" name="innerRadius1"></td> 
+            </tr>
+            <tr class="pie hidden">
+                <th scope="row">간격</th>
+                <td><input type="text" value="0" name="pieGap1"></td> 
+            </tr>
+            <tr class="all">
+                <td colspan="2" class="t-center"><button type="button" class="delete-property" title="차트 옵션 삭제">삭제</button></td>
+            </tr>
+        </table>
+        <h3>차트 여백</h3>
+        <table>
+            <tr>
+                <th scope="row">위</th>
+                <td><input type="text" value="30" name="paddingTop"></td>
+            </tr>
+            <tr>
+                <th scope="row">아래</th>
+                <td><input type="text" value="50" name="paddingBottom"></td>
+            </tr>
+            <tr>
+                <th scope="row">왼쪽</th>
+                <td><input type="text" value="60" name="paddingLeft"></td>
+            </tr>
+            <tr>
+                <th scope="row">오른쪽</th>
+                <td><input type="text" value="30" name="paddingRight"></td>
+            </tr>
+        </table>
+        <h3>X축</h3>
+        <table>
+            <tr>
+                <th scope="row">선 색</th>
+                <td>
+                    <input type="text" name="xAxisColor" class="color-input" value="#868e96">
+                    <div class="selected-color" style="background-color:#868e96;"></div>
+                </td> 
+            </tr>
+            <tr>
+                <th scope="row">선 두께</th>
+                <td><input type="text" name="xAxisWidth" value="1"></td>
+            </tr>
+            <tr>
+                <th scope="row">글자 크기</th>
+                <td><input type="text" name="xAxisFontSize" value="12"></td>
+            </tr>
+            <tr>
+                <th scope="row">글자 색</th>
+                <td>
+                    <input type="text" name="xAxisFontColor" class="color-input" value="#212529">
+                    <div class="selected-color" style="background-color:#212529;"></div>
+                </td>
+            </tr>
+        </table>
+        <h3>Y축</h3>
+        <table>
+            <tr>
+                <th scope="row">선 색</th>
+                <td>
+                    <input type="text" name="yAxisColor" class="color-input" value="#868e96">
+                    <div class="selected-color" style="background-color:#868e96;"></div>
+                </td> 
+            </tr>
+            <tr>
+                <th scope="row">선 두께</th>
+                <td><input type="text" name="yAxisWidth" value="1"></td>
+            </tr>
+            <tr>
+                <th scope="row">글자 크기</th>
+                <td><input type="text" name="yAxisFontSize" value="12"></td>
+            </tr>
+            <tr>
+                <th scope="row">글자 색</th>
+                <td>
+                    <input type="text" name="yAxisFontColor" class="color-input" value="#212529">
+                    <div class="selected-color" style="background-color:#212529;"></div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">보조선 사용 여부</th>
+                <td>
+                    <label>
+                        <input type="radio" name="useGridY" value="false"> 미사용
+                    </label>
+                    <label>
+                        <input type="radio" name="useGridY" value="true" checked> 사용
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">보조선 두께</th>
+                <td><input type="text" name="yGridWidth" value="1"></td>
+            </tr>
+            <tr>
+                <th scope="row">보조선 색</th>
+                <td>
+                    <input type="text" name="yGridColor" class="color-input" value="#dee2e6">
+                    <div class="selected-color" style="background-color:#dee2e6;"></div>
+                </td>
+            </tr>
+        </table>
+        <h3>데이터 값 표시</h3>
+        <table>
+            <tr>
+                <th scope="row">데이터 값 표시</th>
+                <td>
+                    <label>
+                        <input type="radio" name="useDataLabel" value="false"> 미사용
+                    </label>
+                    <label>
+                        <input type="radio" name="useDataLabel" value="true" checked> 사용
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">데이터 글자 크기</th>
+                <td><input type="text" value="12" name="dataFontSize"></td> 
+            </tr>
+            <tr>
+                <th scope="row">데이터 글자 색</th>
+                <td>
+                    <input type="text" value="#212529" name="dataColor" class="color-input" value="#212529">
+                    <div class="selected-color" style="background-color:#212529;"></div>
+                </td> 
+            </tr>
+        </table>
+        <h3>툴팁</h3>
+        <table>
+            <tr>
+                <th scope="row">툴팁 사용 여부</th>
+                <td>
+                    <label>
+                        <input type="radio" name="useBalloon" value="false"> 미사용
+                    </label>
+                    <label>
+                        <input type="radio" name="useBalloon" value="true" checked> 사용
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">글자 크기</th>
+                <td><input type="text" name="balloonFontSize" value="12"></td>
+            </tr>
+            <tr>
+                <th scope="row">글자 색</th>
+                <td>
+                    <input type="text" name="balloonFontColor" class="color-input" value="#212529">
+                    <div class="selected-color" style="background-color:#212529;"></div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">툴팁 색 적용</th>
+                <td>
+                    <label>
+                        <input type="radio" name="ballonColor" value="line" checked> 선
+                    </label>
+                    <label>
+                        <input type="radio" name="ballonColor" value="background"> 배경
+                    </label>
+                </td>
+            </tr>
+        </table>
+        <h3>범례</h3>
+        <table>
+            <tr>
+                <th scope="row">범례 사용 여부</th>
+                <td>
+                    <label>
+                        <input type="radio" name="useLegend" value="false" checked> 미사용
+                    </label>
+                    <label>
+                        <input type="radio" name="useLegend" value="true"> 사용
+                    </label>
+                </td>
+            </tr>
+        </table>
+        <div class="pop-color-list hidden">
+            <ul id="selectColorList"></ul>
+        </div>
+    </div>
+</section>
+<div id="sample" style="display:none">
+     <table class="graph-property">
+        <tr class="all">
+            <th scope="row">제목</th>
+            <td><input type="text" value="" name="chartTitle"></td>
+        </tr>
+        <tr class="all">
+            <th scope="row">유형</th>
+            <td>
+                <ul class="type-list">
+                    <li data-chart-type="bar">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>막대</span>
+                    </li>
+                    <li data-chart-type="line">
+                        <i class="fas fa-chart-line"></i>
+                        <span>꺾은선</span>
+                    </li>
+                    <li data-chart-type="pie">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>파이</span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr class="all">
+            <th scope="row">y축 필드값</th>
+            <td><input type="text" value="value" name="yFeild"></td>
+        </tr>
+        <tr class="bar">
+            <th scope="row">채우기 색</th>
+            <td>
+                <input type="text" name="fillColor" class="color-input" value="">
+                <div class="selected-color"></div>
+            </td> 
+        </tr>
+        <tr class="bar">
+            <th scope="row" title="비율로 결정 0~1 사이의 수 입력">바 넓이</th>
+            <td><input type="text" value="0.5" name="barWidth"></td> 
+        </tr>
+        <tr class="line">
+            <th scope="row">선 색</th>
+            <td>
+                <input type="text" name="lineColor" class="color-input" value="">
+                <div class="selected-color"></div>
+            </td> 
+        </tr>
+        <tr class="line">
+            <th scope="row">선 두께</th>
+            <td><input type="text" value="2" name="lineWidth"></td> 
+        </tr>
+        <tr class="line">
+            <th scope="row">블릿</th>
+            <td>
+                <ul class="shape-list">
+                    <li data-shape="circle" class="selected"><span></span></li>
+                    <li data-shape="square"><span></span></li>
+                    <li data-shape="triangle"><span></span></li>
+                    <li data-shape="diamond"><span></span></li>
+                </ul>
+            </td> 
+        </tr>
+        <tr class="line hidden">
+            <th scope="row">블릿 사이즈</th>
+            <td><input type="text" value="8" name="bulletSize"></td> 
+        </tr>
+        <tr class="pie hidden">
+            <th scope="row">내부 반지름</th>
+            <td><input type="text" value="0" name="innerRadius"></td> 
+        </tr>
+         <tr class="pie hidden">
+            <th scope="row">간격</th>
+            <td><input type="text" value="0" name="pieGap"></td> 
+        </tr>
+        <tr class="all">
+            <td colspan="2" class="t-center"><button type="button" class="delete-property">삭제</button></td>
+        </tr>
+    </table>
+</div>
+<div id="pngcon"></div>
+</body>
+<script>
+function getChartOption() {
+    if(!$('input[name=xField]').val()) {
+        alert('X축 필드값은 필수 입력 사항입니다.')
+        $('input[name=xField]').focus();
+        return false;
+    }
+    if(!$('input[name=yFeild1]').val()) {
+        alert('Y축필드 값은 필수 입력 사항입니다.')
+        $('input[name=yFeild]').focus();
+        return false;
+    }
+    if(!$('input[name=chartHeight]').val()) {
+        alert('차트 높이는 필수 입력 사항입니다.')
+        $('input[name=chartHeight]').focus();
+        return false;
+    }
+    if(!$('input[name=chartWidth]').val()) {
+        alert('차트 넓이는 필수 입력 사항입니다.')
+        $('input[name=chartWidth]').focus();
+        return false;
+    }
+    var dataset = getChartData();
+    var graphs = [];
+    $('.adjust-area .graph-property').each(function(idx){
+        var chartType = $(this).find('.type-list .selected').data('chartType');
+        var graph = {
+            title: $('input[name=chartTitle'+(idx+1)+']').val(),
+            type: chartType,
+            valueField: $('input[name=yFeild'+(idx+1)+']').val()
+        };
+        switch(chartType){
+            case 'bar':
+                graph.barWidth = $('input[name=barWidth'+(idx+1)+']').val()*1;
+                graph.fill = $('input[name=fillColor'+(idx+1)+']').val();
+                break;
+            case 'line':
+                var shape = $(this).find('.shape-list li.selected').data('shape');
+                graph.lineColor = $('input[name=lineColor'+(idx+1)+']').val();
+                graph.bullet = (shape)? shape : 'none';
+                graph.lineWidth = $('input[name=lineWidth'+(idx+1)+']').val() * 1;
+                graph.bulletSize = $('input[name=bulletSize'+(idx+1)+']').val() * 1;
+            case 'pie':
+                graph.innerRadius = $('input[name=innerRadius'+(idx+1)+']').val();
+                graph.pieGap = $('input[name=pieGap'+(idx+1)+']').val();
+        }
+        graphs.push(graph);
+    });
+    if(!dataset) return false;
+    var chartObj = {
+        container:'okyChart',
+        dataProvider: dataset,
+        categoryField: $('input[name=xField]').val(),
+        chartWidth: $('input[name=chartWidth]').val()*1,
+        chartHeight: $('input[name=chartHeight]').val()*1,
+        backgroundColor: $('input[name=backgroundColor]').val(),
+        padding:{
+            top:$('input[name=paddingTop]').val()*1,
+            bottom:$('input[name=paddingBottom]').val()*1,
+            left:$('input[name=paddingLeft]').val()*1,
+            right:$('input[name=paddingRight]').val()*1
+        },
+        balloon:{
+            useBalloon:  $('input[name=useBalloon][value="true"]').prop('checked'),
+            fontSize: $('input[name=balloonFontSize]').val()*1,
+            color: $('input[name=balloonFontColor]').val(),
+            ballonColor: $('input[name=ballonColor]:checked').val()
+        },
+        graphs: graphs,
+        dataLabel:{
+            useLabel: $('input[name=useDataLabel][value="true"]').prop('checked'),
+            fontSize: $('input[name=dataFontSize]').val()*1,
+            color: $('input[name=dataColor]').val(),
+        },
+        legend:{
+            useLegend: $('input[name=useLegend][value="true"]').prop('checked')
+        }
+    };
+    
+    if(graphs[0].type !== 'pie'){
+        chartObj.valueAxis = {
+            axisColor: $('input[name=yAxisColor]').val(),
+            axisThickness: $('input[name=yAxisWidth]').val()*1,
+            color: $('input[name=yAxisFontColor]').val(),
+            fontSize: $('input[name=yAxisFontSize]').val()*1,
+            grid: $('input[name=useGridY][value="true"]').prop('checked'),
+            gridThickness: $('input[name=yGridWidth]').val()*1,
+            gridColor: $('input[name=yGridColor]').val()
+        };
+        chartObj.categoryAxis = {
+            axisColor: $('input[name=xAxisColor]').val(),
+            axisThickness: $('input[name=xAxisWidth]').val()*1,
+            color: $('input[name=xAxisFontColor]').val(),
+            fontSize: $('input[name=xAxisFontSize]').val()*1
+        };
+    }
+    return chartObj;
+}
+function getChartData(){
+    var dataset = [];
+    var keys = [];
+    $('.data-table thead th input[type=text]').each(function(){
+        var thisVal = $(this).val();
+        if(!thisVal) {
+            alert('속성을 입력해주세요.');
+            $(this).focus();
+            return false;
+        } else {
+            if(keys.indexOf(thisVal) > -1) {
+                alert('속성은 중복될 수 없습니다.');
+                $(this).focus();
+                return false;
+            } else {
+                keys.push(thisVal); 
+            }
+        }
+    });
+    if(keys.length !== $('.data-table thead input[type=text]').length) return false;
+    $('.data-table tbody tr').each(function(){
+        var rowData = {};
+        $(this).find('input[type=text]').each(function(idx){
+            if(!$(this).val()) {
+                alert('값을 입력해주세요.');
+                $(this).focus();
+                return false;
+            } else {
+                var val = (isNaN($(this).val())) ? $(this).val() : parseInt($(this).val());
+                rowData[keys[idx]] = val;
+            }
+        });
+        if(Object.keys(rowData).length !== keys.length) return false;
+        else dataset.push(rowData);
+    });
+    return dataset;
+}
+    function output(inp) {
+    document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+}
+
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+function startOkyChart () {
+    var chartObj = getChartOption();
+    OkyChart.draw(chartObj);
+    var strOption = JSON.stringify(chartObj, null, 4);
+    strOption = 'OkyChart.draw(' + strOption + ')';
+    $('.code-area .cont-wrap pre').html(syntaxHighlight(strOption));
+}
+
+function colorSelectSetting (){
+    var colorSet1 = ['#fff','#f8f9fa','#f1f3f5','#e9ecef','#dee2e6','#ced4da','#adb5bd','#868e96','#495057','#343a40','#212529','#000','#fff5f5','#ffe3e3','#ffc9c9','#ffa8a8','#ff8787','#ff6b6b','#fa5252','#f03e3e','#e03131','#c92a2a','#fff0f6','#ffdeeb','#fcc2d7','#faa2c1','#f783ac','#f06595','#e64980','#d6336c','#c2255c','#a61e4d','#f8f0fc','#f3d9fa','#eebefa','#e599f7','#da77f2','#cc5de8','#be4bdb','#ae3ec9','#9c36b5','#862e9c','#f3f0ff','#e5dbff','#d0bfff','#b197fc','#9775fa','#845ef7','#7950f2','#7048e8','#6741d9','#5f3dc4','#edf2ff','#dbe4ff','#bac8ff','#91a7ff','#748ffc','#5c7cfa','#4c6ef5','#4263eb','#3b5bdb','#364fc7','#e7f5ff','#d0ebff','#a5d8ff','#74c0fc','#4dabf7','#339af0','#228be6','#1c7ed6','#1971c2','#1864ab','#e3fafc','#c5f6fa','#99e9f2','#66d9e8','#3bc9db','#22b8cf','#15aabf','#1098ad','#0c8599','#0b7285','#e6fcf5','#c3fae8','#96f2d7','#63e6be','#38d9a9','#20c997','#12b886','#0ca678','#099268','#087f5b','#ebfbee','#d3f9d8','#b2f2bb','#8ce99a','#69db7c','#51cf66','#40c057','#37b24d','#2f9e44','#2b8a3e','#f4fce3','#e9fac8','#d8f5a2','#c0eb75','#a9e34b','#94d82d','#82c91e','#74b816','#66a80f','#5c940d','#fff9db','#fff3bf','#ffec99','#ffe066','#ffd43b','#fcc419','#fab005','#f59f00','#f08c00','#e67700','#fff4e6','#ffe8cc','#ffd8a8','#ffc078','#ffa94d','#ff922b','#fd7e14','#f76707','#e8590c','#d9480f'];
+
+    // 컬러 선택 팝업
+    d3.select('#selectColorList').selectAll('li')
+        .data(colorSet1)
+        .enter()
+        .append('li')
+        .style('background-color', function(d,i){ return d; })
+        .style('background-image', function(d){
+            if(d == 'transparent') return 'url(/img/topology/bg_transparent.png)'
+        })
+        .attr('title', function(d){
+            if(d == 'transparent') return '투명';
+        })
+        .on('mousedown', function(d){
+            var $selectedColor = $('.selected-color.open');
+            $selectedColor.prev('.color-input').val(d);
+            $selectedColor.css('background-color', d);
+            $('.pop-color-list').addClass('hidden');
+            $('.selected-color.open').removeClass('open');
+        });
+}
+    
+function makeData(cnt,max){
+    var dataset = [];
+    for(var i=0;i<cnt;i++){
+        dataset.push({
+            date:2010+i,
+            value:Math.floor(Math.random()*max)
+        })
+    }
+    return dataset;
+}
+
+function sampleDataTable (dataset){
+    var keys = Object.keys(dataset[0]);
+    var theadTr = d3.select('.data-table thead tr');
+    var tbody = d3.select('.data-table tbody');
+    var th = theadTr.selectAll('th')
+        .data(keys)
+        .enter()
+        .append('th')
+    th.append('input')
+        .attr('type','text')
+        .attr('value', function(d){ return d; });
+    th.append('i')
+        .attr('class', 'fas fa-times-circle');
+    theadTr.append('th').text('삭제');    
+    dataset.forEach(function(data){
+        var tr = tbody.append('tr');
+        tr.selectAll('td')
+            .data(keys)
+            .enter()
+            .append('td')
+            .append('input')
+            .attr('type','text')
+            .attr('value', function(d){ return data[d]; })
+        tr.append('td')
+            .html('<i class="fas fa-times-circle"></i>')
+    });
+}    
+
+$('#guide').on('click', function(){
+    location.href = 'api.html';
+})    
+    
+$('.adjust-area').on('click', '.selected-color', function(event){
+    if($(this).hasClass('open')){
+        $('.pop-color-list').addClass('hidden');
+        $(this).removeClass('open')
+    } else {
+        $('.selected-color.open').removeClass('open');
+        $(this).addClass('open');
+        var popHeight = $('.pop-color-list').outerHeight();
+        if($('body').height() - event.clientY <= popHeight) var top = $(this).offset().top - popHeight;
+        else var top = $(this).offset().top + $(this).outerHeight();
+        $('.pop-color-list').css('top', top + 'px');
+        $('.pop-color-list').removeClass('hidden');
+    }
+});
+$('.color-input').on('keyup', function(){
+    if($(this).val()) $(this).next('.selected-color').css('background-color', $(this).val());
+});
+
+$('body').on('click', '.delete-property', function(){
+    if ($('.graph-property').length > 2){
+        $(this).closest('.graph-property').remove();
+    } else {
+        alert('차트 옵션은 하나 이상이어야 합니다.');
+    }
+});
+    
+// 데이터 관련
+$('#addRow').on('click', function(){
+    $('.data-table tbody').append('<tr></tr>');
+    var $tr = $('.data-table tbody tr').last();
+    var td = '<td><input type="text"></td>';
+    var colLen = $('.data-table thead th').length - 1;
+    for(var i=0;i<colLen;i++) $tr.append(td);
+    $tr.append('<td><i class="fas fa-times-circle"></i></td>');
+});
+$('#addCol').on('click', function(){
+    $('.data-table thead tr th:last-child').before('<th><input type="text"><i class="fas fa-times-circle"></i></th>');
+    var td = '<td><input type="text"></td>';
+    $('.data-table tbody tr').each(function(){
+        $(this).find('td').last().before(td);
+    });
+});
+    
+// 차트 옵션 추가
+$('#addColumn').on('click', function(){
+    var $table = $('#sample .graph-property').clone();
+    var index = $('.adjust-area .graph-property').length + 1;
+    var chartType = $('.adjust-area .graph-property').eq(0).find('.type-list li.selected').data('chart-type');
+    var barWidth = $('[name=barWidth1]').val();
+    $table.find('[name=chartTitle]').attr('name','chartTitle'+index);
+    $table.find('[name=fillColor]').val(getColor(index-1)).attr('name','fillColor'+index);
+    $table.find('[name=yFeild]').attr('name','yFeild'+index);
+    $table.find('.selected-color').css('background-color', getColor(index-1));
+    $table.find('[name=barWidth]').val(barWidth).attr('name','barWidth'+index);
+    $table.find('[name=yFeild]').attr('name','yFeild'+index);
+    
+    $table.find('[name=lineColor]').val(getColor(index-1)).attr('name','lineColor'+index);
+    $table.find('[name=lineWidth]').attr('name','lineWidth'+index);
+    $table.find('[name=bulletSize]').attr('name','bulletSize'+index);
+    
+    $table.find('[name=innerRadius]').attr('name','innerRadius'+index);
+    $table.find('[name=pieGap]').attr('name','pieGap'+index);
+    
+    $('.adjust-area .graph-property').last().after($table);
+    $('.adjust-area .graph-property').last().find('.type-list li[data-chart-type=' + chartType + ']').trigger('click');
+});
+
+$('#applyChart,#applyData').on('click', startOkyChart);
+$('.adjust-area').scroll(function(){
+    $('.pop-color-list').addClass('hidden');
+});
+$('body').on('click', '.type-list li', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+    var chartType = $(this).data('chart-type');
+    if(chartType == 'pie'){
+        if($('.adjust-area .graph-property').length > 1) alert('파이 차트는 차트 옵션을 하나만 가질 수 있습니다.');
+        $('#addColumn').addClass('hidden');
+    } else {
+        $('#addColumn').removeClass('hidden');
+    }
+    var $property = $(this).closest('.graph-property');
+    $property.find('tr').addClass('hidden');
+    $property.find('.' + chartType).removeClass('hidden');
+    $property.find('.all').removeClass('hidden');
+});
+$('body').on('click', '.shape-list li', function(){
+    $(this).addClass('selected').siblings().removeClass('selected');
+});
+$('.data-table').on('click', 'th i', function(){
+    var index = $(this).closest('th').index();
+    $('.data-table thead tr th').eq(index).remove();
+    $('.data-table tbody tr').each(function(){
+        $(this).find('td').eq(index).remove();
+    });
+});
+$('.data-table').on('click', 'td i', function(){
+    $(this).closest('tr').remove();
+});
+
+colorSelectSetting();
+var sampleData = makeData (10, 200);    
+sampleDataTable (sampleData);
+startOkyChart();
+</script>
+</html>

@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<script src="/js/jquery-1.12.4.min.js"></script>
+<script src="/js/d3.v4.min.js"></script>
+<script src="/js/okyChart-1.0.js"></script>
+<link rel="stylesheet" href="/css/init.css">
+<link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <header class="margin-auto">
+        <h1>DrawChart</h1>
+        <nav>
+            <ul>
+                <li><a href="/index.html">차트 만들기</a></li>
+                <li><a href="/api.html">사용 방법</a></li>
+                <li><a href="/demo.html">사용 예</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="main-cont">
+        <div class="margin-auto ">
+            <h2>DrawChart 사용 예</h2>
+            <p><i class="fab fa-codepen" title="코드펜에서 코드 확인 하기"></i>를 클릭하시면 codepen에서 코드를 확인 하실 수 있습니다.</p>
+            <ul class="demo-list">
+                <li>
+                    <div id="barChart"></div>
+                    <h3>Bar chart</h3>
+                    <a href="https://codepen.io/oky5710/pen/BXwrJp" target="_blank">
+                        <i class="fab fa-codepen" title="코드펜에서 코드 확인 하기"></i>
+                    </a>
+                </li>
+                <li>
+                    <div id="lineChart"></div>
+                    <h3>Line chart</h3>
+                    <a href="https://codepen.io/oky5710/pen/xvXWQo" target="_blank">
+                        <i class="fab fa-codepen" title="코드펜에서 코드 확인 하기"></i>
+                    </a>
+                </li>
+                <li>
+                    <div id="barLineChart"></div>
+                    <h3>Bar & Line chart</h3>
+                    <a href="https://codepen.io/oky5710/pen/dxVmaY" target="_blank">
+                        <i class="fab fa-codepen" title="코드펜에서 코드 확인 하기"></i>
+                    </a>
+                </li>
+                <li>
+                    <div id="pieChart"></div>
+                    <h3>Pie chart</h3>
+                    <a href="https://codepen.io/oky5710/pen/JgrLzP" target="_blank">
+                        <i class="fab fa-codepen" title="코드펜에서 코드 확인 하기"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</body>
+<script>
+var barChart = OkyChart.draw({
+    'container': 'barChart',
+    'dataProvider': [
+        {
+            'year': '신입',
+            'salary1': 2603,
+            'salary2': 2858,
+            'salary3': 3153,
+        }, {
+            'year': '1년차',
+            'salary1': 2870,
+            'salary2': 3086,
+            'salary3': 3387,
+        }, {
+            'year': '2년차',
+            'salary1': 3174,
+            'salary2': 3329,
+            'salary3': 3516,
+        }, {
+            'year': '3년차',
+            'salary1': 3460,
+            'salary2': 3571,
+            'salary3': 3635,
+        }, {
+            'year': '4년차',
+            'salary1': 3733,
+            'salary2': 3803,
+            'salary3': 3949,
+        }, {
+            'year': '5년차',
+            'salary1': 3984,
+            'salary2': 4053,
+            'salary3': 4251,
+        }, {
+            'year': '6년차',
+            'salary1': 4246,
+            'salary2': 4301,
+            'salary3': 4544,
+        }, {
+            'year': '7년차',
+            'salary1': 4465,
+            'salary2': 4582,
+            'salary3': 4844,
+        }, {
+            'year': '8년차',
+            'salary1': 4677,
+            'salary2': 4865,
+            'salary3': 5053,
+        }, {
+            'year': '9년차',
+            'salary1': 4796,
+            'salary2': 5131,
+            'salary3': 5321,
+        }, {
+            'year': '10년차',
+            'salary1': 5106,
+            'salary2': 5433,
+            'salary3': 5610,
+        }
+    ],
+    'categoryField': 'year',
+    'chartWidth': 570,
+    'chartHeight': 330,
+    'backgroundColor': '#ffffff',
+    'padding': {
+        'top': 30,
+        'bottom': 50,
+        'left': 60,
+        'right': 30
+    },
+    'balloon': {
+        'useBalloon': true,
+        'fontSize': 12,
+        'color': '#212529',
+        'ballonColor': 'line'
+    },
+    'graphs': [
+        {
+            'title': '자바개발자',
+            'type': 'bar',
+            'valueField': 'salary1',
+            'barWidth': 0.5,
+            'fill': '#3bc9db'
+        }, {
+            'title': '안드로이드 개발자',
+            'type': 'bar',
+            'valueField': 'salary2',
+            'barWidth': 0.5,
+            'fill': '#228be6'
+        }, {
+            'title': '파이썬개발자',
+            'type': 'bar',
+            'valueField': 'salary3',
+            'barWidth': 0.5,
+            'fill': '#845ef7'
+        }
+    ],
+    'valueAxis': {
+        'axisColor': '#868e96',
+        'axisThickness': 1,
+        'color': '#212529',
+        'fontSize': 12,
+        'grid': true,
+        'gridThickness': 1,
+        'gridColor': '#dee2e6'
+    },
+    'categoryAxis': {
+        'axisColor': '#868e96',
+        'axisThickness': 1,
+        'color': '#212529',
+        'fontSize': 12
+    }
+})
+var lineChart = OkyChart.draw({
+    'container': 'lineChart',
+    'dataProvider': [
+        {
+            'year': 2016,
+            'salary1':437227,
+            'salary2':381502,
+            'salary3':284440,
+            'salary4':226537,
+            'salary5':190790
+        }, {
+            'year': 2017,
+            'salary1':452611,
+            'salary2':391068,
+            'salary3':305353,
+            'salary4':239506,
+            'salary5':191320
+        }, {
+            'year': 2018,
+            'salary1':462072,
+            'salary2':406342,
+            'salary3':305433,
+            'salary4':239748,
+            'salary5':215681
+        } 
+    ],
+    'categoryField': 'year',
+    'chartWidth': 570,
+    'chartHeight': 330,
+    'backgroundColor': '#ffffff',
+    'padding': {
+        'top': 30,
+        'bottom': 50,
+        'left': 80,
+        'right': 30
+    },
+    'balloon': {
+        'useBalloon': true,
+        'fontSize': 12,
+        'color': '#212529',
+        'ballonColor': 'line'
+    },
+    'graphs': [
+        {
+            'title': '기술사',
+            'type': 'line',
+            'valueField': 'salary1',
+            'barWidth': 0.5,
+            'lineColor': '#1dd1d1',
+            'lineWinth': 2,
+            'bullet': 'circle',
+            'bulletSize': 8
+        },{
+            'title': '특급 기술자',
+            'type': 'line',
+            'valueField': 'salary2',
+            'barWidth': 0.5,
+            'lineColor': '#ff4676',
+            'lineWinth': 2,
+            'bullet': 'square',
+            'bulletSize': 8
+        },{
+            'title': '고급 기술자',
+            'type': 'line',
+            'valueField': 'salary3',
+            'barWidth': 0.5,
+            'lineColor': '#ff4676',
+            'lineWinth': 2,
+            'bullet': 'triangle',
+            'bulletSize': 8
+        },{
+            'title': '중급 기술자',
+            'type': 'line',
+            'valueField': 'salary4',
+            'barWidth': 0.5,
+            'lineColor': '#9c01fe',
+            'lineWinth': 2,
+            'bullet': 'diamond',
+            'bulletSize': 8
+        },{
+            'title': '초급 기술자',
+            'type': 'line',
+            'valueField': 'salary5',
+            'barWidth': 0.5,
+            'lineColor': '#5f61f7',
+            'lineWinth': 2,
+            'bullet': 'circle',
+            'bulletSize': 8
+        }
+    ],
+    'dataLabel': {
+        'useLabel': true,
+        'fontSize': 12,
+        'color': '#212529'
+    },
+    'valueAxis': {
+        'axisColor': '#868e96',
+        'axisThickness': 1,
+        'color': '#212529',
+        'fontSize': 12,
+        'grid': true,
+        'gridThickness': 1,
+        'gridColor': '#dee2e6'
+    },
+    'categoryAxis': {
+        'axisColor': '#868e96',
+        'axisThickness': 1,
+        'color': '#212529',
+        'fontSize': 12,
+        'grid': false,
+        'gridThickness': 1,
+        'gridColor': '#dee2e6'
+    }
+})
+var pieChart = OkyChart.draw({
+    'container': 'pieChart',
+    'dataProvider': [
+        {
+            'age': '10대',
+            'cnt': 576
+        },{
+            'age': '20대',
+            'cnt': 19455
+        },{
+            'age': '30대',
+            'cnt': 26361
+        },{
+            'age': '40대',
+            'cnt': 34934
+        },{
+            'age': '50대',
+            'cnt': 16204
+        },{
+            'age': '60대',
+            'cnt': 4647
+        },{
+            'age': '70대',
+            'cnt': 620
+        }
+    ],
+    'categoryField': 'age',
+    'chartWidth': 570,
+    'chartHeight': 330,
+    'backgroundColor': '#ffffff',
+    'padding': {
+        'top': 20,
+        'bottom': 20,
+        'left': 20,
+        'right': 20
+    },
+    'balloon': {
+        'useBalloon': true,
+        'fontSize': 12,
+        'color': '#212529',
+        'ballonColor': 'line'
+    },
+    'graphs': [
+        {
+            'type': 'pie',
+            'valueField': 'cnt',
+            'innerRadius': '0.5',
+            'pieGap': '2'
+        }
+    ],
+    'dataLabel': {
+        'useLabel': true,
+        'fontSize': 12,
+        'color': '#fff'
+    },
+    'legend': {
+        'useLegend': true,
+        'width': 200
+    }
+})
+var barLineChart = OkyChart.draw({
+    'container': 'barLineChart',
+    'dataProvider': [
+        {
+            'date': '18-09',
+            'value1': 37.8,
+            'value2': 8.8
+        },
+        {
+            'date': '18-10',
+            'value1': 35.9,
+            'value2': 8.4
+        },
+        {
+            'date': '18-11',
+            'value1': 33.9,
+            'value2': 7.9
+        },
+        {
+            'date': '18-12',
+            'value1': 36.6,
+            'value2': 8.6
+        },
+        {
+            'date': '19-01',
+            'value1': 37.8,
+            'value2': 8.9
+        },
+        {
+            'date': '19-02',
+            'value1': 41.0,
+            'value2': 9.5
+        },
+        {
+            'date': '19-03',
+            'value1': 47.3,
+            'value2': 10.8
+        },
+        {
+            'date': '19-04',
+            'value1': 50.7,
+            'value2': 11.5
+        },
+        {
+            'date': '18-05',
+            'value1': 43.7,
+            'value2': 9.9
+        },
+        {
+            'date': '19-06',
+            'value1': 45.3,
+            'value2': 10.4
+        }
+    ],
+    'categoryField': 'date',
+    'chartWidth': 570,
+    'chartHeight': 330,
+    'backgroundColor': '#212529',
+    'padding': {
+        'top': 30,
+        'bottom': 50,
+        'left': 60,
+        'right': 30
+    },
+    'balloon': {
+        'useBalloon': true,
+        'fontSize': 12,
+        'color': '#212529',
+        'ballonColor': 'line'
+    },
+    'graphs': [
+        {
+            'title': '청년 실업률',
+            'type': 'bar',
+            'valueField': 'value2',
+            'barWidth': 0.5,
+            'fill': '#228be6'
+        },
+        {
+            'title': '청년 실업자 수(만명)',
+            'type': 'line',
+            'valueField': 'value1',
+            'lineColor': '#ffd43b',
+            'bullet': 'circle',
+            'lineWidth': 2,
+            'bulletSize': 10
+        }
+    ],
+    'dataLabel': {
+        'useLabel': true,
+        'fontSize': 12,
+        'color': '#dee2e6'
+    },
+    'legend': {
+        'useLegend': false
+    },
+    'valueAxis': {
+        'axisColor': '#868e96',
+        'axisThickness': 1,
+        'color': '#ced4da',
+        'fontSize': 12,
+        'grid': true,
+        'gridThickness': 1,
+        'gridColor': '#343a40'
+    },
+    'categoryAxis': {
+        'axisColor': '#adb5bd',
+        'axisThickness': 1,
+        'color': '#adb5bd',
+        'fontSize': 12
+    }
+})
+</script>
+</html>
