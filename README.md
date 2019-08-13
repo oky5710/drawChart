@@ -1,5 +1,5 @@
 <h2>1. 사용 방법</h2>
-<p>먼저 <a href="http://oky5710.dothome.co.kr/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="http://oky5710.dothome.co.kr/js/okyChart.js">okyChart.js</a>, <a href="/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="/drawChart.zip">전체 download</a>) 받아 사이트에 추가한다.</p>
+<p>먼저 <a href="http://oky5710.dothome.co.kr/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="http://oky5710.dothome.co.kr/js/okyChart.js">okyChart.js</a>, <a href="http://oky5710.dothome.co.kr/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="http://oky5710.dothome.co.kr/drawChart.zip">전체 download</a>) 받아 사이트에 추가한다.</p>
 <pre><link rel="stylesheet" href="/css/okyChart.css">
 <script src="/js/d3.v4.min.js"></script> 
 <script src="/js/okyChart.js"></script></pre>
@@ -37,7 +37,7 @@ OkyChart.draw({
     }
 })  
 </pre>  
-    <h2>2. Chart options</h2>
+    <h2 id="chartOptions">2. Chart options</h2>
     <table>
         <thead>
             <tr>
