@@ -1,4 +1,5 @@
 <h2>1. 사용 방법</h2>
+
     <p>먼저 <a href="/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="/js/okyChart.js">okyChart.js</a>, <a href="/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="/drawChart.zip">전체 download</a>) 받아 사이트에 추가하거나</p>
     <pre>&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/css/okyChart.css"</span>&gt;
 &lt;script src=<span class="string">"/js/d3.v4.min.js"</span>&gt;&lt;/script&gt;	
@@ -41,6 +42,7 @@ OkyChart.draw({
     }
 })  
         </pre>
+        
     <h2>2. Chart options</h2>
     <table>
         <thead>
@@ -306,3 +308,11 @@ OkyChart.draw({
             </tr>
         </tbody>
     </table>
+    
+<h2>3. 사용 예</h2>
+<ul>
+    <li><a href="https://codepen.io/oky5710/pen/BXwrJp" target="_blank">Bar chart</a></li>
+    <li><a href="https://codepen.io/oky5710/pen/xvXWQo" target="_blank">Line chart</a></li>
+    <li><a href="https://codepen.io/oky5710/pen/dxVmaY" target="_blank">Bar & Line chart</a></li>
+    <li><a href="https://codepen.io/oky5710/pen/JgrLzP" target="_blank">Pie chart</a></li>
+</ul>
