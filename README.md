@@ -1,6 +1,6 @@
 <h1>DrawChart</h1>
 <ul>
-    <li>Bar chart, Line chart, Pie chart를 구현할 수 있는 JavaScript liblary</li>
+    <li>Bar chart, Line chart, Pie chart를 구현할 수 있는 JavaScript library</li>
     <li><a href="http://oky5710.dothome.co.kr/">chart editor</a> 제공</li>
 </ul>
 <h2>1. 사용 방법</h2>
