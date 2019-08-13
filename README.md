@@ -1,3 +1,8 @@
+<h1>DrawChart</h1>
+<ul>
+    <li>Bar chart, Line chart, Pie chart를 구현할 수 있는 JavaScript liblary</li>
+    <li><a href="http://oky5710.dothome.co.kr/">chart editor</a> 제공</li>
+</ul>
 <h2>1. 사용 방법</h2>
 <p>먼저 <a href="http://oky5710.dothome.co.kr/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="http://oky5710.dothome.co.kr/js/okyChart.js">okyChart.js</a>, <a href="http://oky5710.dothome.co.kr/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="http://oky5710.dothome.co.kr/drawChart.zip">전체 download</a>) 받아 사이트에 추가한다.</p>
 <pre><link rel="stylesheet" href="/css/okyChart.css">
