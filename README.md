@@ -1,17 +1,12 @@
 <h2>1. 사용 방법</h2>
-
-    <p>먼저 <a href="/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="/js/okyChart.js">okyChart.js</a>, <a href="/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="/drawChart.zip">전체 download</a>) 받아 사이트에 추가하거나</p>
-    <pre>&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"/css/okyChart.css"</span>&gt;
-&lt;script src=<span class="string">"/js/d3.v4.min.js"</span>&gt;&lt;/script&gt;	
-&lt;script src=<span class="string">"/js/okyChart.js"</span>&gt;&lt;/script&gt;</pre>
-    <p>아래의 주소를 사용하여 사이트에 추가한다.</p>
-    <pre>&lt;link rel="stylesheet" href="https://res.cloudinary.com/dlh0mqkmb/raw/upload/v1564845044/okyChart.css"&gt;
-&lt;script src="https://res.cloudinary.com/dlh0mqkmb/raw/upload/v1564841169/d3.v4.min.js"&gt;&lt;/script&gt;	
-&lt;script src="https://res.cloudinary.com/dlh0mqkmb/raw/upload/v1564844893/okyChart-1.0.js"&gt;&lt;/script&gt;</pre>
-    <p>차트를 추가할 위치에 div를 아래와 같이 추가한다.</p>
+<p>먼저 <a href="http://oky5710.dothome.co.kr/js/d3.v4.min.js">d3.v4.min.js</a>와 <a href="http://oky5710.dothome.co.kr/js/okyChart.js">okyChart.js</a>, <a href="/css/okyChart.css">okyChart.css</a>(툴팁용 CSS)를 다운(<a href="/drawChart.zip">전체 download</a>) 받아 사이트에 추가한다.</p>
+<pre><link rel="stylesheet" href="/css/okyChart.css">
+<script src="/js/d3.v4.min.js"></script> 
+<script src="/js/okyChart.js"></script></pre>
+<p>차트를 추가할 위치에 div를 아래와 같이 추가한다.</p>
 <pre>&lt;div id="divId"&gt;&lt;/div&gt;</pre>
-    <p>아래 예시와 같이 OkyChart.draw(option)으로 차트 그리기를 실행한다. option의 세부 내용은 <a href="#chartOptions">Chart options</a>을 참고하여 작성하거나 <a href="/index.html">차트 만들기</a>에서 필요한 옵션을 선택한 후 소스를 복사하여 사용한다.</p>
-        <pre>
+<p>아래 예시와 같이 OkyChart.draw(option)으로 차트 그리기를 실행한다. option의 세부 내용은 <a href="#chartOptions">Chart options</a>을 참고하여 작성하거나 <a href="http://oky5710.dothome.co.kr/index.html">차트 만들기</a>에서 필요한 옵션을 선택한 후 소스를 복사하여 사용한다.</p>
+<pre>
 OkyChart.draw({
     "container": "divId",
     "dataProvider": [{"year": 2018, "value": 286}...],
@@ -41,8 +36,7 @@ OkyChart.draw({
         "color": "#212529",
     }
 })  
-        </pre>
-        
+</pre>  
     <h2>2. Chart options</h2>
     <table>
         <thead>
